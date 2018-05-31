@@ -1,0 +1,15 @@
+#+property: header-args :comments link :tangle-mode (identity #o400) :results output silent :mkdirp yes
+
+* Files
+  :PROPERTIES:
+  :header-args+: :package ":utility-directory"
+  :header-args+: :tangle "system/files.lisp"
+  :END:
+
+#+begin_src lisp :exports none
+(in-package :utility-directory)
+#+end_src
+
+** ~read-file-into-string~
+
+Reads a file into a string.  It is available in ~alexandria~.

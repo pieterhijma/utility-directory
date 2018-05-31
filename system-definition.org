@@ -33,7 +33,8 @@ The file ~packages.lisp~ defines the two packages ~:util~ and
 	      :split-list-on-first
 
 	      :def-methods
-	      :fixed-point))
+	      :fixed-point
+	      :unexport-symbols))
 #+end_src
 
 ** Utilities 

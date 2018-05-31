@@ -149,3 +149,21 @@ copying it with copy-function."
         until (funcall ,compare-function ,old ,var)
           finally (return ,var))))
 #+end_src
+
+** ~unexport-symbols~
+
+Unexport symbols that are not defined to be exported in a package.  A typical
+usage is to call this in front of a ~defpackage~ to make sure that the compiler
+does not complain about symbols that are visible but are not defined to be
+exported in the package declaration.
+
+#+begin_src lisp
+(defmacro unexport-symbols (package)
+  "Unexport symbols that are defined dynamically, i.e. not in a 'defpackage' 
+definition."
+  (with-gensyms (s)
+    `(eval-when (:compile-toplevel)
+       (when (find-package ,package)
+	 (do-external-symbols (,s ,package)
+	   (unexport ,s ,package))))))
+#+end_src

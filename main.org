@@ -11,7 +11,7 @@
    (require 'ob)
    (require 'ob-tangle)
    (let ((files '("main.org" "system-definition.org" "sequences.org"
-		  "lists.org" "macros.org")))
+		  "lists.org" "strings.org" "files.org" "macros.org")))
      (mapc (lambda (file)
 	     (find-file file)
 	     (let ((result (org-babel-tangle)))
@@ -147,6 +147,9 @@ We can search utilities with [[http://quickutil.org/list][Quickutil]].  We can a
 # #+include: "system-definition.org" :minlevel 1
 #+include: "sequences.org" :minlevel 1
 #+include: "lists.org" :minlevel 1
+#+include: "strings.org" :minlevel 1
+#+include: "files.org" :minlevel 1
+#+include: "macros.org" :minlevel 1
 # #+include: "sets.org" :minlevel 1
 # #+include: "relations.org" :minlevel 1
 # #+include: "strings.org" :minlevel 1
