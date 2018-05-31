@@ -18,7 +18,7 @@ Takes the cartesian product of a list of lists.  It is also available in
 Quickutil, but this version only supports two lists, whereas the version below
 supports more than two.
 
- #+begin_src lisp
+#+begin_src lisp
 (defun simple-cartesian-product (set list)
   (loop for elm in set
      nconc (loop for set in list
@@ -28,13 +28,20 @@ supports more than two.
   (reduce #'simple-cartesian-product list-of-sets
 	  :from-end t
 	  :initial-value '(())))
- #+end_src
+#+end_src
 
 
 ** ~ensure-list~ <<util:ensure-list>>
 
 This utility is sometimes also called ~mklist~ and ensures that the result is
 always a list.  It is available in ~alexandria~.
+
+** ~filter~
+
+Returns a new list of the elements in the original for which the predicate
+holds.  This can be done with ~(remove-if (complement <predicate>)
+<sequence>)~.  This can also be expressed with ~(remove-if-not <predicate>
+<sequence>)~, but this function is deprecated.
 
 ** ~flatten~
 

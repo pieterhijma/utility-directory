@@ -13,8 +13,7 @@ The following code shows how the system is defined.
 (in-package :utility-directory-asd)
 
 (defsystem :utility-directory
-  :components ((:file "utilities")
-	       (:file "packages" :depends-on ("utilities"))
+  :components ((:file "packages")
 	       (:file "macros" :depends-on ("packages"))
                (:file "lists" :depends-on ("packages"))))
 #+end_src
@@ -26,16 +25,18 @@ The file ~packages.lisp~ defines the two packages ~:util~ and
 (in-package :cl-user)
 
 (defpackage :utility-directory
-     (:use :cl :utility-directory-util)
+     (:use :cl)
+     (:import-from :alexandria :with-gensyms)
      (:export :cartesian-product
 	      :list-of
 	      :list-of-type
 	      :split-list-on-first
 
-	      :def-methods))
+	      :def-methods
+	      :fixed-point))
 #+end_src
 
-** Utilities
+** Utilities 
 
 This library makes use of Quickutil.  We generate a file with the following
 command:

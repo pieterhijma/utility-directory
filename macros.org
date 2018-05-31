@@ -133,3 +133,19 @@ An example is: (def-methods multi ((a (string integer))
 #      (defun ,name ,parameters ,@body)
 #      (setf (documentation ',name 'function) (funcall ,doc-func))))
 # #+end_src
+
+** ~fixed-point~
+
+Computes a fixed-point of a data-structure given a copy and compare function.
+
+#+begin_src lisp
+(defmacro fixed-point (var copy-function compare-function &body body)
+  "Compute a fixed point of var, comparing the var with compare-function and
+copying it with copy-function."
+  (with-gensyms (old)
+    `(loop with ,old
+        do (setf ,old (funcall ,copy-function ,var))
+          ,@body
+        until (funcall ,compare-function ,old ,var)
+          finally (return ,var))))
+#+end_src
