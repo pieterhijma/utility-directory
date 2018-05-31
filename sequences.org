@@ -1,0 +1,18 @@
+#+property: header-args :comments link :tangle-mode (identity #o400) :results output silent :mkdirp yes
+
+* Sequences
+  :PROPERTIES:
+  :header-args+: :package ":utility-directory"
+  :header-args+: :tangle "system/sequences.lisp"
+  :END:
+
+#+begin_src lisp :exports none
+(in-package :utility-directory)
+#+end_src
+
+The following sequence utilities are listed:
+
+** ~split-sequence~
+
+Splits a sequence into a list based on a delimiter.  It can be found in
+~split-sequence~ and ~cl-utilities~.

@@ -144,6 +144,7 @@ We can search utilities with [[http://quickutil.org/list][Quickutil]].  We can a
 
 
 # #+include: "system-definition.org" :minlevel 1
+#+include: "sequences.org" :minlevel 1
 #+include: "lists.org" :minlevel 1
 # #+include: "sets.org" :minlevel 1
 # #+include: "relations.org" :minlevel 1
