@@ -12,6 +12,25 @@
 
 This directory has the following utility functions for lists:
 
+** ~cartesian-product~
+
+Takes the cartesian product of a list of lists.  It is also available in
+Quickutil, but this version only supports two lists, whereas the version below
+supports more than two.
+
+ #+begin_src lisp
+(defun simple-cartesian-product (set list)
+  (loop for elm in set
+     nconc (loop for set in list
+	      collect (cons elm set))))
+
+(defun cartesian-product (list-of-sets)
+  (reduce #'simple-cartesian-product list-of-sets
+	  :from-end t
+	  :initial-value '(())))
+ #+end_src
+
+
 ** ~ensure-list~ <<util:ensure-list>>
 
 This utility is sometimes also called ~mklist~ and ensures that the result is

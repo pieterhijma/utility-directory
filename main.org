@@ -10,7 +10,8 @@
    (require 'org)
    (require 'ob)
    (require 'ob-tangle)
-   (let ((files '("main.org" "system-definition.org" "lists.org")))
+   (let ((files '("main.org" "system-definition.org" "sequences.org"
+		  "lists.org" "macros.org")))
      (mapc (lambda (file)
 	     (find-file file)
 	     (let ((result (org-babel-tangle)))

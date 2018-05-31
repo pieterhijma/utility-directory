@@ -13,7 +13,9 @@ The following code shows how the system is defined.
 (in-package :utility-directory-asd)
 
 (defsystem :utility-directory
-  :components ((:file "packages")
+  :components ((:file "utilities")
+	       (:file "packages" :depends-on ("utilities"))
+	       (:file "macros" :depends-on ("packages"))
                (:file "lists" :depends-on ("packages"))))
 #+end_src
 
@@ -24,6 +26,22 @@ The file ~packages.lisp~ defines the two packages ~:util~ and
 (in-package :cl-user)
 
 (defpackage :utility-directory
-     (:use :cl)
-     (:export :list-of :list-of-type :split-list-on-first))
+     (:use :cl :utility-directory-util)
+     (:export :cartesian-product
+	      :list-of
+	      :list-of-type
+	      :split-list-on-first
+
+	      :def-methods))
+#+end_src
+
+** Utilities
+
+This library makes use of Quickutil.  We generate a file with the following
+command:
+
+#+begin_src lisp :tangle no
+(in-package :cl-user)
+
+(qtlc:save-utils-as "system/utilities.lisp" :utilities '() :package :utility-directory-util)
 #+end_src

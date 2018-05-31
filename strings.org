@@ -13,4 +13,8 @@ This section contains the following utility functions for strings.
 The function ~join~ joins elements of a list together with a separator and
 returns a string.  It can be found in ~cl-strings~.
 
+** ~string-case~
+
+Provides a case statement that supports strings.  Available from ~string-case~.
+
 
