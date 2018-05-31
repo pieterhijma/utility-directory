@@ -1,0 +1,29 @@
+#+property: header-args :comments link :tangle-mode (identity #o400) :results output silent :mkdirp yes
+
+* Setting up the system
+
+The following code shows how the system is defined.  
+
+#+begin_src lisp :tangle "system/utility-directory.asd" :mkdirp yes
+(in-package :cl-user)
+
+(defpackage :utility-directory-asd
+  (:use :cl :asdf))
+
+(in-package :utility-directory-asd)
+
+(defsystem :utility-directory
+  :components ((:file "packages")
+               (:file "lists" :depends-on ("packages"))))
+#+end_src
+
+The file ~packages.lisp~ defines the two packages ~:util~ and
+~:test-util~.
+
+#+begin_src lisp :tangle "system/packages.lisp" :mkdirp yes
+(in-package :cl-user)
+
+(defpackage :utility-directory
+     (:use :cl)
+     (:export :list-of :list-of-type :split-list-on-first))
+#+end_src

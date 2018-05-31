@@ -1,0 +1,157 @@
+#+property: header-args :comments link :tangle-mode (identity #o400) :results output silent :mkdirp yes
+
+#+title: Common Lisp Utility Directory
+
+ # tangling
+
+#+begin_src emacs-lisp :exports none :results output silent
+(async-start
+ (lambda ()
+   (require 'org)
+   (require 'ob)
+   (require 'ob-tangle)
+   (let ((files '("main.org" "system-definition.org" "lists.org")))
+     (mapc (lambda (file)
+	     (find-file file)
+	     (let ((result (org-babel-tangle)))
+	       (kill-buffer)
+	       result))
+	   files)))
+ (lambda (result)
+   (message "Done with tangling %s." (mapconcat 'identity result " "))))
+(princ "Busy with tangling")
+#+end_src
+
+
+#+begin_src emacs-lisp :exports none :results output silent
+(defun export ()
+  (require 'package)
+  (package-initialize)
+  (require 'org)
+  (require 'ob)
+  (require 'htmlize)
+  (find-file "main.org")
+  (org-html-export-as-html)
+  (write-file "html/main.html")
+  (kill-buffer))
+
+(defun msg-me (process event)
+  (when (equal event "finished\n")
+    (message "Exporting to HTML done")
+    (kill-buffer "*html-export*")))
+
+(progn
+  (set-process-sentinel
+   (start-process-shell-command
+    "html-export" "*html-export*"
+    (format "TERM=xterm-256color;emacs -Q -nw --eval '(progn (funcall %S) (kill-emacs))';exit"
+	    (symbol-function 'export))) 'msg-me)
+  (princ "Busy exporting to HTML"))
+#+end_src
+
+
+ # clean
+#+begin_src sh :exports none :results output silent :shebang #!/bin/sh
+/bin/rm -rf html
+/bin/rm -rf system
+#+end_src
+
+* Introduction
+
+There are many different packages in Common Lisp that provide general utility
+functions.  The general utility landscape is rather fragmented with libraries
+such as Alexandria, cl-utilities, etc.  An interesting approach to solve this
+problem is [[http://quickutil.org][Quickutil]] that allows you to load a specific utility in your image,
+independent of what exact package it originates from.  Although it would be
+preferable to add all the utilities to Quickutil, this system does not seem to
+be completely up-to-date (mid 2018).  Another problem is that for this system
+to work well, all utility libraries maintainers should add or allow to add
+their utilities to this system, which is problematic due to licenses.
+
+This utility directory serves as a way to find and add commonly used utilities
+organized by category.  It simply lists commonly used utilities, records which
+library contains the functionality and if no library has it, it adds the
+functionality.
+
+* Finding utility functions
+
+If a utility function is not listed in this directory, one can try to find the
+utility by the following means:
+
+** Quicksearch
+
+Quicksearch searches through wikis and Github for utility functionality:
+
+#+begin_src lisp :tangle no
+(ql:quickload "quicksearch")
+(quicksearch:quicksearch "join")
+#+end_src
+
+#+begin_example
+SEARCH-RESULTS: "join"
+
+ Cliki
+  beirc
+  cirCLe
+  cl-ajax
+  cl-strings
+  cl-uglify-js
+  clsql-fluid
+  clsql-pg-introspect
+  hyde
+  ILC 2003 sightseeing
+  IRC
+  JARW
+  LispChicago
+  LispGameDesignChallenge
+  LispGameDesignChallenge-summer-2010
+  Naming conventions
+  patron
+  str
+  Three Comma Programmer
+  YoungLispers
+
+ GitHub
+  cl-join
+  joint_movement
+  join-sequence
+  chenchao-1407-test
+T
+#+end_example
+
+#+begin_src lisp :tangle no
+(ql:system-apropos "cl-strings")
+(ql:ql "cl-strings")
+(cl-strings:join '("a" "b" "c") :separator ", ")
+#+end_src
+
+#+begin_example
+"a, b, c"
+#+end_example
+
+** Quickutil
+
+We can search utilities with [[http://quickutil.org/list][Quickutil]].  We can also use the REPL:
+
+#+begin_src lisp :tangle no
+(ql:quickload "quickutil")
+(qtlc:who-provides :mappend)
+#+end_src
+
+#+begin_example
+:MAPPEND
+#+end_example
+
+
+# #+include: "system-definition.org" :minlevel 1
+#+include: "lists.org" :minlevel 1
+# #+include: "sets.org" :minlevel 1
+# #+include: "relations.org" :minlevel 1
+# #+include: "strings.org" :minlevel 1
+# #+include: "hash-tables.org" :minlevel 1
+# #+include: "files.org" :minlevel 1
+# #+include: "graphs.org" :minlevel 1
+# #+include: "fixed-point.org" :minlevel 1
+# #+include: "contracts.org" :minlevel 1
+# #+include: "macros.org" :minlevel 1
+# #+include: "test-util.org" :minlevel 1

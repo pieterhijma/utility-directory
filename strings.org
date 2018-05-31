@@ -1,0 +1,16 @@
+#+property: header-args :comments link :tangle-mode (identity #o400) :results output silent :mkdirp yes
+
+* Strings
+  :PROPERTIES:
+  :header-args+: :package ":utility-directory"
+  :header-args+: :tangle "system/strings.lisp"
+  :END:
+
+This section contains the following utility functions for strings.
+
+** ~join~
+
+The function ~join~ joins elements of a list together with a separator and
+returns a string.  It can be found in ~cl-strings~.
+
+

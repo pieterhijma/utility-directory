@@ -1,0 +1,62 @@
+#+property: header-args :comments link :tangle-mode (identity #o400) :results output silent :mkdirp yes
+
+* Lists
+  :PROPERTIES:
+  :header-args+: :package ":utility-directory"
+  :header-args+: :tangle "system/lists.lisp"
+  :END:
+
+#+begin_src lisp :exports none
+(in-package :utility-directory)
+#+end_src
+
+This directory has the following utility functions for lists:
+
+** ~ensure-list~ <<util:ensure-list>>
+
+This utility is sometimes also called ~mklist~ and ensures that the result is
+always a list.  It is available in ~alexandria~.
+
+** ~flatten~
+
+This utility flattens a tree.  It can be found in ~let-over-lambda~ and
+~alexandria~. 
+
+** ~list-of~
+
+Returns true if all elements of the list satisfy the predicate.
+
+#+begin_src lisp
+(defun list-of (predicate list)
+  "Check whether the elements of lst sattisfy predicate."
+  (loop for i in list always (funcall predicate i)))
+#+end_src
+
+** ~list-of-type~
+
+Returns true if all elements of the list have the given type.
+
+#+begin_src lisp
+(defun list-of-type (list type)
+  "Check whether the elements of list are of type type."
+  (list-of #'(lambda (x) (typep x type)) list))
+#+end_src
+
+** ~mklist~
+
+See [[util:ensure-list][~ensure-list~]]
+
+
+** ~split-list-on-first~
+
+Splits a list on the first item that satisfies the given predicate.
+
+#+begin_src lisp
+(defun split-list-on-first (predicate list)
+  "Split the list on the first item that satisfies the predicate."
+  (loop for (head . tail) on list
+     when (funcall predicate head) return (values first-part (cons head tail))
+     collect head into first-part))
+#+end_src
+
+
