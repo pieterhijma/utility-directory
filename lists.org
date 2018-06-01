@@ -30,6 +30,10 @@ supports more than two.
 	  :initial-value '(())))
 #+end_src
 
+** ~compose~
+
+This is slightly out of place, but function composition is a list of functions.
+The function ~compose~ is available in ~alexandria~.
 
 ** ~ensure-list~ <<util:ensure-list>>
 
@@ -47,6 +51,38 @@ holds.  This can be done with ~(remove-if (complement <predicate>)
 
 This utility flattens a tree.  It can be found in ~let-over-lambda~ and
 ~alexandria~. 
+
+
+** ~insert-after~
+
+Return a new list where an item is inserted behind a specified item in a list.
+
+#+begin_src lisp
+(defun insert-after (item-to-insert-after list item-to-insert 
+		      &key (test #'eq))
+  "Insert item-to-insert after item-to-insert-after in list list."
+  (reduce #'(lambda (item result)
+	      (if (funcall test item item-to-insert-after)
+		  (cons item (cons item-to-insert result))
+		  (cons item result))) list :from-end t :initial-value nil))
+
+
+#+end_src
+
+
+** ~insert-before~
+
+ #+begin_src lisp
+(defun insert-before (item-to-insert-before list item-to-insert 
+		      &key (test #'eq))
+  "Insert item-to-insert before item-to-insert-before in list list."
+  (reduce #'(lambda (item result)
+	      (if (funcall test item item-to-insert-before)
+		  (cons item-to-insert (cons item result))
+		  (cons item result))) list :from-end t :initial-value nil))
+#+end_src
+
+
 
 ** ~list-of~
 
@@ -73,6 +109,24 @@ Returns true if all elements of the list have the given type.
 See [[util:ensure-list][~ensure-list~]]
 
 
+** ~splice-if~
+
+This function splices a list into another list as soon as the test holds on an
+item in the list.  This function resembles ~subst-if~ a bit, but does not
+operate on trees, but just on a single list.
+
+#+begin_src lisp
+(defun splice-if (new test list)
+  "Splice new into list list if test test holds.  If new is not a list but an
+item, the item is inserted into the list."
+  (reduce #'(lambda (x y)
+	      (if (funcall test x)
+		  (if (listp new) (append new y) (cons new y))
+		  (cons x y)))
+	  list :from-end t :initial-value nil))
+#+end_src
+
+
 ** ~split-list-on-first~
 
 Splits a list on the first item that satisfies the given predicate.
@@ -85,4 +139,15 @@ Splits a list on the first item that satisfies the given predicate.
      collect head into first-part))
 #+end_src
 
+
+
+** ~walk-tree~
+
+Apply a function to all atoms and conses of a tree.
+
+#+begin_src lisp
+(defun walk-tree (tree function)
+  "Walk a tree and apply function to all atoms and conses."
+  (subst-if t (constantly nil) tree :key function))
+ #+end_src
 

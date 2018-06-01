@@ -15,7 +15,8 @@ The following code shows how the system is defined.
 (defsystem :utility-directory
   :components ((:file "packages")
 	       (:file "macros" :depends-on ("packages"))
-               (:file "lists" :depends-on ("packages"))))
+               (:file "lists" :depends-on ("packages"))
+	       (:file "hash-table" :depends-on ("packages"))))
 #+end_src
 
 The file ~packages.lisp~ defines the two packages ~:util~ and
@@ -28,9 +29,15 @@ The file ~packages.lisp~ defines the two packages ~:util~ and
      (:use :cl)
      (:import-from :alexandria :with-gensyms)
      (:export :cartesian-product
+	      :insert-after
+	      :insert-before
 	      :list-of
 	      :list-of-type
 	      :split-list-on-first
+	      :splice-if
+	      :walk-tree
+
+	      :hash-table=
 
 	      :def-methods
 	      :fixed-point

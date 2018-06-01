@@ -1,0 +1,27 @@
+#+property: header-args :comments link :tangle-mode (identity #o400) :results output silent :mkdirp yes
+
+* Hash-table
+  :PROPERTIES:
+  :header-args+: :package ":utility-directory"
+  :header-args+: :tangle "system/hash-table.lisp"
+  :END:
+
+** ~copy-hash-table~
+
+Copies a hash-table.  Can be found in ~alexandria~.
+
+** ~hash-table=~
+
+Tests whether two hash-tables are equal. 
+
+#+begin_src lisp
+(in-package :utility-directory)
+
+(defun hash-table= (ht1 ht2 &key (test-for-value #'eq))
+  "Compare whether hash-tables ht1 and ht2 are equal given equality function
+test-for-value that compares the values of the hash-tables". 
+  (and (eql (hash-table-count ht1) (hash-table-count ht2))
+       (loop for k being the hash-keys in ht1 using (hash-value v1)
+	  always (multiple-value-bind (v2 present) (gethash k ht2)
+		   (and present (funcall test-for-value v1 v2))))))
+#+end_src
