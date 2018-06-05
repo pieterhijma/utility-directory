@@ -13,9 +13,12 @@ The following code shows how the system is defined.
 (in-package :utility-directory-asd)
 
 (defsystem :utility-directory
+  :depends-on (:cl-strings)
   :components ((:file "packages")
 	       (:file "macros" :depends-on ("packages"))
                (:file "lists" :depends-on ("packages"))
+	       (:file "files" :depends-on ("packages"))
+	       (:file "strings" :depends-on ("packages"))
 	       (:file "hash-table" :depends-on ("packages"))))
 #+end_src
 
@@ -31,15 +34,20 @@ The file ~packages.lisp~ defines the two packages ~:util~ and
      (:export :cartesian-product
 	      :insert-after
 	      :insert-before
+	      :filter
 	      :list-of
 	      :list-of-type
 	      :split-list-on-first
 	      :splice-if
 	      :walk-tree
 
+	      :escape
+	      :replace-all-multiple
+
 	      :hash-table=
 
 	      :def-methods
+	      :def-standard-class
 	      :fixed-point
 	      :unexport-symbols))
 #+end_src

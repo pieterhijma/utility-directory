@@ -12,6 +12,14 @@
 
 The following sequence utilities are listed:
 
+** ~last1~
+
+See [[last-elt]].
+
+** ~last-elt~<<last-elt>>
+
+Gives the last element in a sequence.  Can be found in ~alexandria~.
+
 ** ~split-sequence~
 
 Splits a sequence into a list based on a delimiter.  It can be found in

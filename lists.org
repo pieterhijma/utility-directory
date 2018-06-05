@@ -45,7 +45,14 @@ always a list.  It is available in ~alexandria~.
 Returns a new list of the elements in the original for which the predicate
 holds.  This can be done with ~(remove-if (complement <predicate>)
 <sequence>)~.  This can also be expressed with ~(remove-if-not <predicate>
-<sequence>)~, but this function is deprecated.
+<sequence>)~, but this function is deprecated.  These forms are so verbose,
+that we just added filter:
+
+#+begin_src lisp
+(defun filter (predicate sequence)
+  (remove-if (complement predicate) sequence))
+#+end_src
+
 
 ** ~flatten~
 
@@ -103,6 +110,15 @@ Returns true if all elements of the list have the given type.
   "Check whether the elements of list are of type type."
   (list-of #'(lambda (x) (typep x type)) list))
 #+end_src
+
+** ~map-tuple~
+
+The function ~map-tuple~ can be mimicked with:
+
+#+begin_src lisp :tangle no 
+(loop for (a b) on <list> while b collect #'(lambda (a b) ...))
+#+end_src
+
 
 ** ~mklist~
 

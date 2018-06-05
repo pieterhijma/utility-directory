@@ -13,3 +13,7 @@
 ** ~read-file-into-string~
 
 Reads a file into a string.  It is available in ~alexandria~.
+
+** ~list-directory~
+
+Listing the contents of a directory can be found in ~cl-fad~.

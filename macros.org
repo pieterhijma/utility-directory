@@ -134,6 +134,23 @@ An example is: (def-methods multi ((a (string integer))
 #      (setf (documentation ',name 'function) (funcall ,doc-func))))
 # #+end_src
 
+** ~def-standard-class~
+
+Creates a standard class with initarg keywords and readers for the slots.
+
+#+begin_src lisp
+(defmacro def-standard-class (name superclasses slots)
+  "Creates a class with superclasses and slots with for every slot:
+- a keyword for the slot to initialize
+- an initform that throws an error if you don't supply a value for the slot
+- a reader with the same name."
+  `(defclass ,name ,superclasses
+     ,(loop for s in slots collect
+           `(,s :initarg ,(intern (string s) :keyword)
+                :initform (error "Must supply ~a" ',s)
+                :reader ,s))))
+#+end_src
+
 ** ~fixed-point~
 
 Computes a fixed-point of a data-structure given a copy and compare function.

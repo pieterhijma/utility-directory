@@ -8,6 +8,24 @@
 
 This section contains the following utility functions for strings.
 
+#+begin_src lisp :exports none
+(in-package :utility-directory)
+#+end_src
+
+
+** ~escape~
+
+Escape charachters in a string.
+
+#+begin_src lisp
+(defun escape (string &rest to-be-escaped)
+  "Returns a new string with all occurrences of to-be-escaped escaped (with a
+slash)."
+  (apply #'replace-all-multiple string (loop for i in to-be-escaped
+                                          collect i
+                                          collect (format nil "\\~a" i))))
+#+end_src
+
 ** ~join~
 
 The function ~join~ joins elements of a list together with a separator and
@@ -17,4 +35,26 @@ returns a string.  It can be found in ~cl-strings~.
 
 Provides a case statement that supports strings.  Available from ~string-case~.
 
+
+** ~replace-all~
+
+Replacing all occurences of a substring by another string.  Can be found in
+~cl-strings~.
+
+** ~replace-all-multiple~
+
+Replace all occurrences of multiple specifications in a string.
+
+#+begin_src lisp
+(defun replace-all-multiple (string &rest specs)
+  "Returns a new string based on specification specs where multiple
+replacements can be defined.
+
+Example: (replace-all-multiple \"input\" \"i\" \"o\" \"n\" \"ut\"), which should
+return \"output\"."
+  (loop for (spec . replacement) on specs by #'cddr
+     do (let ((replacement (first replacement)))
+          (setf string (cl-strings:replace-all string spec replacement))))
+  string)
+#+end_src
 
