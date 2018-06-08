@@ -1,3 +1,20 @@
+#+name: license-preamble
+#+begin_src lisp :exports none
+;;;; Copyright 2018 Pieter Hijma
+
+;;;; Licensed under the Apache License, Version 2.0 (the "License");
+;;;; you may not use this file except in compliance with the License.
+;;;; You may obtain a copy of the License at
+
+;;;;     http://www.apache.org/licenses/LICENSE-2.0
+
+;;;; Unless required by applicable law or agreed to in writing, software
+;;;; distributed under the License is distributed on an "AS IS" BASIS,
+;;;; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+;;;; See the License for the specific language governing permissions and
+;;;; limitations under the License.
+#+end_src
+
 #+property: header-args :comments link :tangle-mode (identity #o400) :results output silent :mkdirp yes
 
 * Hash-table
@@ -5,6 +22,13 @@
   :header-args+: :package ":utility-directory"
   :header-args+: :tangle "system/hash-table.lisp"
   :END:
+
+#+begin_src lisp :exports none :noweb yes
+<<license-preamble>>
+
+(in-package :utility-directory)
+#+end_src
+
 
 ** ~copy-hash-table~
 
@@ -15,8 +39,6 @@ Copies a hash-table.  Can be found in ~alexandria~.
 Tests whether two hash-tables are equal. 
 
 #+begin_src lisp
-(in-package :utility-directory)
-
 (defun hash-table= (ht1 ht2 &key (test-for-value #'eq))
   "Compare whether hash-tables ht1 and ht2 are equal given equality function
 test-for-value that compares the values of the hash-tables."
