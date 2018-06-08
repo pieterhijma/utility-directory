@@ -1,0 +1,25 @@
+#+title: Common Lisp Utility Directory
+
+* Introduction
+
+There are many different packages in Common Lisp that provide general utility
+functions.  The general utility landscape is rather fragmented with libraries
+such as Alexandria, cl-utilities, etc.  An interesting approach to solve this
+problem is [[http://quickutil.org][Quickutil]] that allows you to load a specific utility in your image,
+independent of what exact package it originates from.  Although it would be
+preferable to add all the utilities to Quickutil, this system does not seem to
+be completely up-to-date (mid 2018).  Another problem is that for this system
+to work well, all utility libraries maintainers should add or allow to add
+their utilities to this system, which is problematic due to licenses.
+
+This utility directory serves as a way to find and add commonly used utilities
+organized by category.  It simply lists commonly used utilities, records which
+library contains the functionality and if no library has it, it adds the
+functionality.
+
+* Copyright
+
+This library has the Apache 2.0 license for now, but since it is preferable to
+add them to Quickutil, they may be released to the public domain later as
+Quickutil requires this.  
+
