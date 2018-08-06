@@ -33,6 +33,18 @@
 
 Reads a file into a string.  It is available in ~alexandria~.
 
+** ~read-lines~
+
+Reads a file into a list of strings, each string representing a line:
+
+#+begin_src lisp
+(defun read-lines (stream)
+  (loop for line = (read-line stream nil 'eof)
+     until (eq line 'eof)
+     collect line))
+#+end_src
+
+
 ** ~list-directory~
 
 Listing the contents of a directory can be found in ~cl-fad~.

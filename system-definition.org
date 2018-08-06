@@ -69,7 +69,9 @@ The file ~packages.lisp~ defines the two packages ~:util~ and
 	      :def-methods
 	      :def-standard-class
 	      :fixed-point
-	      :unexport-symbols))
+	      :unexport-symbols
+	      
+	      :read-lines))
 #+end_src
 
 ** Utilities 
