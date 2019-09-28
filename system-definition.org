@@ -31,7 +31,7 @@ The following code shows how the system is defined.
 (in-package :utility-directory-asd)
 
 (defsystem :utility-directory
-  :depends-on (:cl-strings)
+  :depends-on (:cl-strings :alexandria)
   :components ((:file "packages")
 	       (:file "macros" :depends-on ("packages"))
                (:file "lists" :depends-on ("packages"))

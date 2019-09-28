@@ -48,3 +48,8 @@ Reads a file into a list of strings, each string representing a line:
 ** ~list-directory~
 
 Listing the contents of a directory can be found in ~cl-fad~.
+
+** ~pathname-exists-p~
+
+Whether a pathname (in general) exists can be checked with
+~file-exists-p~ in package ~cl-fad~.
